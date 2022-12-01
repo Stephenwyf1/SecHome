@@ -2,8 +2,8 @@ import javax.security.auth.callback.Callback;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class SystemTest {
 
+public class SystemTest {
     public static void main(String[] args) {
         // magic number 10, indicate the size of the building.
         int[][] building = new int[10][10];
@@ -19,8 +19,8 @@ public class SystemTest {
                 section2.addBuilding(new Room(i, j));
             }
         }
-        section1.installSensor(SensorType.FIRE);
-        section2.installSensor(SensorType.SEC);
+        section1.installSensor(SensorType.FIRE, true);
+        section2.installSensor(SensorType.SEC, false);
         List<Room> roomList1 = section1.getRooms();
         List<Room> roomList2 = section2.getRooms();
         for (Room room : roomList1) {

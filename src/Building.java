@@ -7,7 +7,7 @@ abstract class Building {
         this.id = UUID.randomUUID();
     }
     abstract public int computePrice();
-    abstract public void installSensor(SensorType sensorType);
+    abstract public void installSensor(SensorType sensorType, Boolean isNeedCamera);
     abstract public void turnOnSensor();
     abstract public void turnOffSensor();
     abstract public void uninstallSensor();

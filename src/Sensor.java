@@ -2,7 +2,6 @@ import java.util.UUID;
 
 class Sensor {
     SensorState state = SensorState.OFF;
-
     DeviceListener listener;
     final SensorType sensorType;
     final UUID id;
@@ -23,7 +22,8 @@ class Sensor {
     }
 
     public void report() {
-        ControlPanel.getSingletonControlPanel().alert(this.id);
+        this.state = SensorState.ERROR;
+        SecHomeSystem.getSingletonControlPanel().alert(this.id);
     }
 
     int getPrice() {

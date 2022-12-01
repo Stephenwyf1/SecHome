@@ -19,9 +19,9 @@ public class BuildingSection extends Building {
         return sum;
     }
     @Override
-    public void installSensor(SensorType sensorType) {
+    public void installSensor(SensorType sensorType, Boolean isNeedCamera) {
         for (Building b : collection) {
-            b.installSensor(sensorType);
+            b.installSensor(sensorType, isNeedCamera);
         }
     }
 

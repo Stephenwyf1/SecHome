@@ -1,0 +1,2 @@
+public class FireAlarmBill {
+}
