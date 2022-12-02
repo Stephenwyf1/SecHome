@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public interface BillBuilder {
@@ -9,9 +11,10 @@ public interface BillBuilder {
     public BillBuilder buildContactNumber1(String contactNumber1);
     public BillBuilder buildContactNumber2(String contactNumber2);
     public BillBuilder buildCustomerID(String customerID);
-    public BillBuilder buildEffectiveDates(String effectiveDates);
-    public BillBuilder buildCoverageDetail(ArrayList<Room> rooms);
+    public BillBuilder buildEffectiveDates(Date effectiveDates);
+    public BillBuilder buildCoverageDetail(List<Room> rooms);
     public BillBuilder buildPriceDetail(int price);
     public BillBuilder buildCost(BuildingSection section);
+    public Bill getResult();
 
 }

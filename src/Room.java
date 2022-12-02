@@ -17,13 +17,19 @@ public class Room extends Building {
     }
 
     @Override
+    public int computePrice(SensorType sensorType) {
+        return this.sensor != null && this.sensor.sensorType == sensorType ? this.sensor.getPrice() : 0;
+    }
+
+    @Override
     public void installSensor(SensorType sensorType, Boolean isNeedCamera) {
         if (!this.hasSensor()) {
             this.sensor = switch (sensorType) {
-                case FIRE -> new FireSensor(sensorType);
-                case SEC -> new MotionSensor(sensorType, isNeedCamera ? new Camera() : null);
+                case FIRE -> new FireSensor(sensorType, SecHomeSystem.fireSensorPrice);
+                case SEC -> new MotionSensor(sensorType, isNeedCamera ? new Camera() : null,
+                        SecHomeSystem.motionSensorPrice + (isNeedCamera ? SecHomeSystem.cameraPrice : 0));
             };
-            SecHomeSystem.getSingletonControlPanel().location.put(sensor.id, this);
+            SecHomeSystem.getSingletonSystem().location.put(sensor.id, this);
         }
         else {
             System.out.println("This room (id: "+this.id+") already had a sensor. " +
@@ -34,7 +40,7 @@ public class Room extends Building {
     @Override
     public void uninstallSensor() {
         if (this.hasSensor()) {
-            SecHomeSystem.getSingletonControlPanel().location.remove(sensor.id);
+            SecHomeSystem.getSingletonSystem().location.remove(sensor.id);
             this.sensor = null;
         }
     }
@@ -46,6 +52,12 @@ public class Room extends Building {
         return list;
     }
 
+    @Override
+    public List<Room> getRooms(SensorType sensorType) {
+        List<Room> list = new ArrayList<>();
+        if (this.sensor.sensorType == sensorType) list.add(this);
+        return list;
+    }
     public void turnOnSensor() {
         if (this.hasSensor()) {
             sensor.turnOn();

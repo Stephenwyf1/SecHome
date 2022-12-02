@@ -7,7 +7,8 @@ class Sensor {
     final UUID id;
     int price = 0;
 
-    Sensor(SensorType sensorType) {
+    Sensor(SensorType sensorType, int price) {
+        this.price = price;
         this.sensorType = sensorType;
         this.id = UUID.randomUUID();
         this.listener = new DeviceListener();
@@ -23,9 +24,9 @@ class Sensor {
 
     public void report() {
         this.state = SensorState.ERROR;
-        SecHomeSystem.getSingletonControlPanel().alert(this.id);
+        SecHomeSystem.getSingletonSystem().alert(this.id);
     }
-
+    void setPrice(int price) {this.price = price;}
     int getPrice() {
         return this.price;
     }

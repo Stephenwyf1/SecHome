@@ -1,6 +1,5 @@
 public class FireSensor extends Sensor {
-    public FireSensor(SensorType sensorType) {
-        super(sensorType);
-        this.price = 1135;
+    public FireSensor(SensorType sensorType, int price) {
+        super(sensorType, price);
     }
 }
