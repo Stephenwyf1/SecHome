@@ -20,28 +20,34 @@ public class InstallAndUninstallDialog extends JDialog{
                 new Rectangle(
                         200,
                         200,
-                        350,
+                        450,
                         200
                 )
         );
 
-        JRadioButton roomOption = new JRadioButton("Install By Room");
-        JRadioButton secOption = new JRadioButton("Install By Section");
+        JComboBox box = new JComboBox();
+        box.addItem("By Room");
+        box.addItem("By Section");
+
         JTextArea t = new JTextArea("ID:");
         JTextField input = new JTextField(20);
 
-        this.add(roomOption);
-        this.add(secOption);
+        this.add(box);
         this.add(t);
         this.add(input);
 
+        // install action event
         installBtn = new JButton("Install");
         installBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (input.getText().equals("")) {
+                    ErrorDialog err = new ErrorDialog("Please enter the room or section ID you want to install.");
+                }
             }
         });
+
+        // uninstall action event
         uninstallBtn = new JButton("Uninstall");
         this.add(installBtn);
         this.add(uninstallBtn);
