@@ -72,6 +72,12 @@ public class SecurityBillBuilder implements BillBuilder {
     }
 
     @Override
+    public BillBuilder buildCameraPrice(int cameraPrice) {
+        this.bill.cameraPrice = cameraPrice;
+        return this;
+    }
+
+    @Override
     public BillBuilder buildCost(BuildingSection section) {
         this.bill.totalCost = section.computePrice(SensorType.SEC);
         return this;
