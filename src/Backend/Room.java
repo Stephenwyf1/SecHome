@@ -26,7 +26,8 @@ public class Room extends Building {
     }
 
     @Override
-    public void installSensor(SensorType sensorType, Boolean isNeedCamera) {
+    public ArrayList<Room> installSensor(SensorType sensorType, Boolean isNeedCamera) {
+        ArrayList<Room> rooms = new ArrayList<>();
         if (!this.hasSensor()) {
             this.sensor = switch (sensorType) {
                 case FIRE -> new FireSensor(sensorType, SecHomeSystem.fireSensorPrice);
@@ -34,11 +35,13 @@ public class Room extends Building {
                         SecHomeSystem.motionSensorPrice + (isNeedCamera ? SecHomeSystem.cameraPrice : 0));
             };
             SecHomeSystem.getSingletonSystem().location.put(sensor.id, this);
+            rooms.add(this);
         }
         else {
             System.out.println("This room (id: "+this.getId()+") already had a sensor. " +
                     "Please uninstall it before you try to install a new one.");
         }
+        return rooms;
     }
 
     @Override

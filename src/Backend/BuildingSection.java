@@ -34,12 +34,14 @@ public class BuildingSection extends Building {
     }
 
     @Override
-    public void installSensor(SensorType sensorType, Boolean isNeedCamera) {
+    public ArrayList<Room> installSensor(SensorType sensorType, Boolean isNeedCamera) {
+        ArrayList<Room> rooms = new ArrayList<>();
         this.currentInstallation = sensorType;
         this.isInstalledCamera = isNeedCamera;
         for (Building b : collection) {
-            b.installSensor(sensorType, isNeedCamera);
+            rooms.addAll(b.installSensor(sensorType, isNeedCamera));
         }
+        return rooms;
     }
 
     @Override

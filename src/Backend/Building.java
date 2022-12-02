@@ -1,6 +1,7 @@
 package Backend;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -12,7 +13,7 @@ abstract class Building {
     }
     abstract public int computePrice();
     abstract public int computePrice(SensorType sensorType);
-    abstract public void installSensor(SensorType sensorType, Boolean isNeedCamera);
+    abstract public ArrayList<Room> installSensor(SensorType sensorType, Boolean isNeedCamera);
     abstract public void turnOnSensor();
     abstract public void turnOffSensor();
     abstract public void uninstallSensor();
