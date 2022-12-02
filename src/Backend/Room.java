@@ -77,15 +77,13 @@ public class Room extends Building {
     public void turnOnSensor() {
         if (this.hasSensor()) {
             sensor.turnOn();
-        } else
-            throw new NullPointerException("Sensor not installed");
+        }
     }
 
     public void turnOffSensor() {
         if (this.hasSensor()) {
             sensor.turnOff();
-        } else
-            throw new NullPointerException("Sensor not installed");
+        }
     }
 
     public UUID getSectionID() {
