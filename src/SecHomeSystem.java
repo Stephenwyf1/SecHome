@@ -4,48 +4,49 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class SecHomeSystem {
-
-     String serviceContractId;
-     String customerName;
-     String addressOfProperty;
-     String contactNumber1;
-     String contactNumber2;
-     String customerID;
-     Date effectiveDates;
-
+    static final String serviceContractId;
+    static Properties props;
+    static final String customerName;
+    static final String addressOfProperty;
+    String contactNumber1;
+    String contactNumber2;
+    static final String customerID;
+    static final Date effectiveDates;
+    String password;
     static int fireSensorPrice;
-
     static int motionSensorPrice;
-
     static int cameraPrice;
-
     Room[][] roomLayOut;
-
     BuildingSection building;
-
     BuildingSection section1;
-
     BuildingSection section2;
-
     BuildingSection section3;
-    // GUI;
 
     // to locate a Room by reported information from a sensor
     HashMap<UUID, Room> location = new HashMap<>();
     private volatile static SecHomeSystem singletonSecHomeSystem;
     String emgNumber = "12311325155";
-    private SecHomeSystem(){
+
+    static {
+        String customerInfo = "setting.properties";
+        props = new Properties();
         try {
-            String customerInfo = "setting.properties";
-            Properties props = new Properties();
             props.load(new java.io.FileInputStream(customerInfo));
             serviceContractId = props.getProperty("serviceContractId");
-            customerName = props.getProperty("customerName");
             addressOfProperty = props.getProperty("addressOfProperty");
+            customerName = props.getProperty("customerName");
+            effectiveDates = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(props.getProperty("effectiveDates"));
+            customerID = props.getProperty("customerID");
+        } catch (IOException | ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private SecHomeSystem(){
+        try {
             contactNumber1 = props.getProperty("contactNumber1");
             contactNumber2 = props.getProperty("contactNumber2");
-            customerID = props.getProperty("customerID");
-            effectiveDates = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(props.getProperty("effectiveDates"));
+            password = props.getProperty("password");
             fireSensorPrice = Integer.parseInt(props.getProperty("fireSensorPrice"));
             motionSensorPrice = Integer.parseInt(props.getProperty("motionSensorPrice"));
             cameraPrice = Integer.parseInt(props.getProperty("cameraPrice"));
@@ -82,12 +83,6 @@ public class SecHomeSystem {
         }
     }
 
-//    public static void main(String[] args) throws IOException, ParseException {
-//        String customerInfo = "setting.properties";
-//        Properties props = new Properties();
-//        props.load(new java.io.FileInputStream(customerInfo));
-//
-//    }
     public static SecHomeSystem getSingletonSystem(){
         if (singletonSecHomeSystem == null) {
             singletonSecHomeSystem = new SecHomeSystem();
@@ -99,6 +94,10 @@ public class SecHomeSystem {
         String bill = BillDirector.getSingletonDirector().makeBill(sensorType, section);
         System.out.println(bill);
         return bill;
+    }
+
+    public boolean verifyPassword(String password) {
+        return password.equals(this.password);
     }
 
     public void alert(UUID sensorId) {

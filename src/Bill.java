@@ -1,21 +1,15 @@
 import java.util.Date;
 
 public class Bill {
-
     String serviceContractId;
     String customerName;
     String addressOfProperty;
     String contactNumber1;
-
     String contactNumber2;
-
     String customerID;
-
     Date effectiveDates;
-
     String coverageDetail;
     int pirce;
-
     int totalCost;
     public Bill(){}
     @Override
