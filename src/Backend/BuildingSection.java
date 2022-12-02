@@ -34,7 +34,7 @@ public class BuildingSection extends Building {
     }
 
     @Override
-    public ArrayList<Room> installSensor(SensorType sensorType, Boolean isNeedCamera) {
+    public ArrayList<Room> installSensor(SensorType sensorType, Boolean isNeedCamera) throws Exception {
         ArrayList<Room> rooms = new ArrayList<>();
         this.currentInstallation = sensorType;
         this.isInstalledCamera = isNeedCamera;
