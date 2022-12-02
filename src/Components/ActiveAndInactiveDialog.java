@@ -107,9 +107,29 @@ public class ActiveAndInactiveDialog extends JDialog{
             }
         });
 
+        // turn on the whole system
+        JButton systemOn = new JButton("Turn On System");
+        systemOn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AuthenticationDialog("off");
+            }
+        });
+
+        // turn off the whole system
+        JButton systemOff = new JButton("Turn Off System");
+        systemOff.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AuthenticationDialog("off");
+            }
+        });
+
 
         this.add(activeBtn);
         this.add(inactiveBtn);
+        this.add(systemOn);
+        this.add(systemOff);
         this.setVisible(true);
 
 

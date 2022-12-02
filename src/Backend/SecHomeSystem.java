@@ -207,4 +207,10 @@ public class SecHomeSystem {
         return location;
     }
 
+    public HashMap<UUID, BuildingSection> getSectionMap() {return this.sectionMap;}
+
+    public void turnOnSystem () { this.building.turnOnSensor();}
+
+    public void turnOffSystem () { this.building.turnOffSensor();}
+
 }
