@@ -120,12 +120,13 @@ public class SecHomeSystem {
         return singletonSecHomeSystem;
     }
 
-    public String buildBill(SensorType sensorType, BuildingSection section) {
-        String bill = BillDirector.getSingletonDirector().makeBill(sensorType, section);
+    public String buildBill(SensorType sensorType) {
+        String bill = BillDirector.getSingletonDirector().makeBill(sensorType, getBuilding());
         System.out.println(bill);
         return bill;
     }
 
+    public BuildingSection getBuilding() {return this.building;}
     public String getAddressOfProperty() {
         return addressOfProperty;
     }
@@ -201,4 +202,10 @@ public class SecHomeSystem {
     public BuildingSection getSectionById(UUID id) {
         return sectionMap.get(id);
     }
+
+    public HashMap<UUID, Room> getLocation() {
+        return location;
+    }
+
+    public
 }

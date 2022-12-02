@@ -29,24 +29,22 @@ public class Room extends Building {
 
     @Override
     public ArrayList<Room> installSensor(SensorType sensorType, Boolean isNeedCamera) throws Exception {
-        SensorType type = SecHomeSystem.getSingletonSystem().sectionMap.get(this.getSectionID()).currentInstallation;
-        if (type != null && type != sensorType) {
+        if (sensorType != SecHomeSystem.getSingletonSystem().sectionMap.get(this.getSectionID()).currentInstallation) {
             throw new Exception("A section can only have one type of sensor");
         }
         ArrayList<Room> rooms = new ArrayList<>();
-        if (!(this.hasSensor() && this.getSensor().getSensorType() == sensorType)) {
-            if (!this.hasSensor()) {
-                this.sensor = switch (sensorType) {
-                    case FIRE -> new FireSensor(sensorType, SecHomeSystem.fireSensorPrice);
-                    case SEC -> new MotionSensor(sensorType, isNeedCamera ? new Camera() : null,
-                            SecHomeSystem.motionSensorPrice + (isNeedCamera ? SecHomeSystem.cameraPrice : 0));
-                };
-                SecHomeSystem.getSingletonSystem().location.put(sensor.id, this);
-                rooms.add(this);
-            } else {
-                throw new Exception("This room (id: "+this.getId()+") already had a sensor. " +
-                        "Please uninstall it before you try to install a new one.");
-            }
+        if (!this.hasSensor()) {
+            this.sensor = switch (sensorType) {
+                case FIRE -> new FireSensor(sensorType, SecHomeSystem.fireSensorPrice);
+                case SEC -> new MotionSensor(sensorType, isNeedCamera ? new Camera() : null,
+                        SecHomeSystem.motionSensorPrice + (isNeedCamera ? SecHomeSystem.cameraPrice : 0));
+            };
+            SecHomeSystem.getSingletonSystem().location.put(sensor.id, this);
+            rooms.add(this);
+        }
+        else {
+            throw new Exception("This room (id: "+this.getId()+") already had a sensor. " +
+                    "Please uninstall it before you try to install a new one.");
         }
         return rooms;
     }
