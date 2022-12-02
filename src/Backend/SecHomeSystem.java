@@ -209,8 +209,8 @@ public class SecHomeSystem {
 
     public HashMap<UUID, BuildingSection> getSectionMap() {return this.sectionMap;}
 
-    public void turnOnSystem () { this.building.turnOnSensor();}
+    public ArrayList<Room> turnOnSystem () { return this.building.turnOnSensor();}
 
-    public void turnOffSystem () { this.building.turnOffSensor();}
+    public ArrayList<Room> turnOffSystem () { return this.building.turnOffSensor();}
 
 }

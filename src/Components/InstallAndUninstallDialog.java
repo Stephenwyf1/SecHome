@@ -118,7 +118,11 @@ public class InstallAndUninstallDialog extends JDialog{
                             default -> null;
                         };
 
-                        building.uninstallSensor();
+                        ArrayList<Room> list = building.uninstallSensor();
+                        for (Room each : list) {
+                            Application.paintSingleRoom(each);
+                            Application.panel.updateUI();
+                        }
                         new SuccessDialog();
 
                     } catch (Exception exception) {

@@ -1,11 +1,13 @@
 package Components;
 
+import Backend.Room;
 import Backend.SecHomeSystem;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class AuthenticationDialog extends JDialog{
 
@@ -21,10 +23,16 @@ public class AuthenticationDialog extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (system.verifyPassword(input.getText())) {
+                    ArrayList<Room> list;
                     if(action.equals("on")) {
-                        system.turnOnSystem();
+                        list = system.turnOnSystem();
                     } else {
-                        system.turnOffSystem();
+                        list = system.turnOffSystem();
+                    }
+
+                    for (Room each : list) {
+                        Application.paintSingleRoom(each);
+                        Application.panel.updateUI();
                     }
                     new SuccessDialog();
                 } else {

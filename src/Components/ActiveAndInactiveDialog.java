@@ -67,7 +67,11 @@ public class ActiveAndInactiveDialog extends JDialog{
                         if (building == null) {
                             ErrorDialog err = new ErrorDialog("Room id doesn't exist.");
                         } else {
-                            building.turnOnSensor();
+                            ArrayList<Room> list = building.turnOnSensor();
+                            for (Room each : list) {
+                                Application.paintSingleRoom(each);
+                                Application.panel.updateUI();
+                            }
                             new SuccessDialog();
                         }
 
@@ -98,7 +102,11 @@ public class ActiveAndInactiveDialog extends JDialog{
                         default -> null;
                     };
 
-                    building.turnOffSensor();
+                    ArrayList<Room> list = building.turnOffSensor();
+                    for (Room each : list) {
+                        Application.paintSingleRoom(each);
+                        Application.panel.updateUI();
+                    }
                     new SuccessDialog();
 
                 } catch (Exception exception) {
@@ -112,7 +120,7 @@ public class ActiveAndInactiveDialog extends JDialog{
         systemOn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new AuthenticationDialog("off");
+                new AuthenticationDialog("on");
             }
         });
 

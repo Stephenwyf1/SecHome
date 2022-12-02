@@ -5,6 +5,9 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 import Backend.Room;
 import Backend.SecHomeSystem;
@@ -15,6 +18,7 @@ public class Application extends JFrame{
     private static SecHomeSystem system;
     static JFrame frame;
     static JPanel panel = new JPanel(null);
+    static HashMap<UUID,JButton> roomBtnMap = new HashMap<>();
     static JButton btn1 = new JButton("Install/Uninstall");
     static JButton btn2 = new JButton("Active/Inactive");
     static JButton btn3 = new JButton("Schedule");
@@ -84,10 +88,23 @@ public class Application extends JFrame{
     public static void paintSingleRoom(Room room) {
 
         int rate = 80;
-        int off = 20;
+        int off = 50;
 
         String label = "(" + room.getX() + "," + room.getY() + ")";
-        JButton g = new JButton(label);
+        JButton g;
+        if (roomBtnMap.get(room.getId()) == null) {
+            g = new JButton(label);
+            roomBtnMap.put(room.getId(),g);
+            g.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    RoomInfoDialog dialog = new RoomInfoDialog(room);
+                }
+            });
+        } else {
+            g = roomBtnMap.get(room.getId());
+        }
+
         if (room.getSensor() != null) {
             Sensor s = room.getSensor();
             Color color = switch (s.getState()) {
@@ -96,15 +113,11 @@ public class Application extends JFrame{
                 case ERROR -> Color.YELLOW;
             };
             g.setForeground(color);
+        } else {
+            g.setForeground(Color.black);
         }
 
         g.setBounds(room.getX() * rate + off,room.getY() * rate + off,40,20);
-        g.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                RoomInfoDialog dialog = new RoomInfoDialog(room);
-            }
-        });
         panel.add(g);
     }
 
@@ -137,6 +150,13 @@ public class Application extends JFrame{
             }
         });
 
+        // System Test
+        btn5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<Room> list;
+            }
+        });
 
         // Help info
         btn6.addActionListener(new ActionListener() {
