@@ -187,6 +187,18 @@ public class SecHomeSystem {
         // TODO: notify the GUI that this sensor should be red
     }
 
+    public ArrayList<Room> getASensorForTest() throws Exception {
+        ArrayList<Room> rooms = new ArrayList<>();
+        if (this.location.size() == 0) {
+            throw new Exception("Please install at least one sensor to test.");
+        } else {
+            for (UUID key : this.location.keySet()) {
+                location.get(key).getSensor().report();
+                rooms.add(location.get(key));
+            }
+            return rooms;
+        }
+    }
     public Room[][] getRoomLayOut() {
         return this.roomLayOut;
     }
