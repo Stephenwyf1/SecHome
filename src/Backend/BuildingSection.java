@@ -4,6 +4,7 @@ package Backend;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 
 public class BuildingSection extends Building {
     SensorType currentInstallation;
@@ -81,6 +82,7 @@ public class BuildingSection extends Building {
         }
         return rooms;
     }
+
     public void addBuilding(Building building) {
         collection.add(building);
     }

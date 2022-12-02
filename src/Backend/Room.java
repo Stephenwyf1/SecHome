@@ -3,6 +3,7 @@ package Backend;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Room extends Building {
     final int x;
@@ -35,7 +36,7 @@ public class Room extends Building {
             SecHomeSystem.getSingletonSystem().location.put(sensor.id, this);
         }
         else {
-            System.out.println("This room (id: "+this.id+") already had a sensor. " +
+            System.out.println("This room (id: "+this.getId()+") already had a sensor. " +
                     "Please uninstall it before you try to install a new one.");
         }
     }
@@ -61,6 +62,7 @@ public class Room extends Building {
         if (this.sensor.sensorType == sensorType) list.add(this);
         return list;
     }
+
     public void turnOnSensor() {
         if (this.hasSensor()) {
             sensor.turnOn();
