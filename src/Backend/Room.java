@@ -68,7 +68,7 @@ public class Room extends Building {
     @Override
     public List<Room> getRooms(SensorType sensorType) {
         List<Room> list = new ArrayList<>();
-        if (this.sensor.sensorType == sensorType) list.add(this);
+        if (this.hasSensor() && this.sensor.sensorType == sensorType) list.add(this);
         return list;
     }
 

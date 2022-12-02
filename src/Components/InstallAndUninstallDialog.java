@@ -15,15 +15,13 @@ import java.util.UUID;
 public class InstallAndUninstallDialog extends JDialog{
 
     SecHomeSystem system = SecHomeSystem.getSingletonSystem();
-    JFrame owner;
-    String title;
+
     JButton installBtn;
     JButton uninstallBtn;
 
-    public InstallAndUninstallDialog(JFrame frame, String title) {
+    public InstallAndUninstallDialog() {
 
-            this.owner = frame;
-            this.title = title;
+            this.setTitle("Install and Uninstall");
             this.setLayout(new FlowLayout());
             this.setBounds(
                     new Rectangle(

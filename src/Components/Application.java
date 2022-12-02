@@ -112,9 +112,18 @@ public class Application extends JFrame{
         btn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                InstallAndUninstallDialog newInstallAndUninstallDialog = new InstallAndUninstallDialog(frame,"Install/Unistall");
+                InstallAndUninstallDialog newInstallAndUninstallDialog = new InstallAndUninstallDialog();
             }
         });
+
+        // Active and Inactive
+        btn2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ActiveAndInactiveDialog newActiveAndInactiveDialog = new ActiveAndInactiveDialog();
+            }
+        });
+
 
         // BuildBill
         btn4.addActionListener(new ActionListener() {
