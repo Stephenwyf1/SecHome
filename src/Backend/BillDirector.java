@@ -14,10 +14,12 @@ public class BillDirector {
     public String makeBill(SensorType sensorType, BuildingSection section) {
         SecHomeSystem system = SecHomeSystem.getSingletonSystem();
         int unitPrice;
+        int cameraPrice = 0;
         BillBuilder builder;
         if (sensorType == SensorType.SEC) {
             builder = new SecurityBillBuilder();
-            unitPrice = SecHomeSystem.motionSensorPrice + (section.isInstalledCamera ? SecHomeSystem.cameraPrice : 0);
+            unitPrice = SecHomeSystem.motionSensorPrice;
+            cameraPrice = SecHomeSystem.cameraPrice;
         } else {
             builder = new FireAlarmBillBuilder();
             unitPrice = SecHomeSystem.fireSensorPrice;
@@ -30,6 +32,7 @@ public class BillDirector {
                 .buildEffectiveDates(system.getEffectiveDates())
                 .buildServiceContractId(system.getServiceContractId())
                 .buildPriceDetail(unitPrice)
+                .buildCameraPrice(cameraPrice)
                 .buildCost(section)
                 .buildCoverageDetail(section.getRooms(sensorType))
                 .getResult();

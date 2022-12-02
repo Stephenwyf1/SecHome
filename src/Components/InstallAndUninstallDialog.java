@@ -79,7 +79,7 @@ public class InstallAndUninstallDialog extends JDialog{
                                     type = SensorType.FIRE;
                                 } else {
                                     type = SensorType.SEC;
-                                    if (box2.getSelectedIndex() == 2) {
+                                    if (box2.getSelectedIndex() == 1) {
                                         needCam = true;
                                     }
                                 }

@@ -14,6 +14,7 @@ public interface BillBuilder {
     public BillBuilder buildEffectiveDates(Date effectiveDates);
     public BillBuilder buildCoverageDetail(List<Room> rooms);
     public BillBuilder buildPriceDetail(int price);
+    public BillBuilder buildCameraPrice(int cameraPrice);
     public BillBuilder buildCost(BuildingSection section);
     public Bill getResult();
 

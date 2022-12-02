@@ -19,11 +19,12 @@ public class Room extends Building {
 
     @Override
     public int computePrice() {
-        return this.sensor == null ? 0 : this.sensor.getPrice();
+        return this.hasSensor() ? this.sensor.getPrice() : 0;
     }
 
     @Override
     public int computePrice(SensorType sensorType) {
+//        System.out.println(this.x+":"+this.y+": "+((this.hasSensor() && this.getSensor().getSensorType() == sensorType) ? this.sensor.getPrice() : 0 ));
         return (this.hasSensor() && this.getSensor().getSensorType() == sensorType) ? this.sensor.getPrice() : 0;
     }
 
@@ -40,6 +41,7 @@ public class Room extends Building {
                 case SEC -> new MotionSensor(sensorType, isNeedCamera ? new Camera() : null,
                         SecHomeSystem.motionSensorPrice + (isNeedCamera ? SecHomeSystem.cameraPrice : 0));
             };
+            System.out.println(this.getSensor().price);
             SecHomeSystem.getSingletonSystem().location.put(sensor.id, this);
             rooms.add(this);
         }

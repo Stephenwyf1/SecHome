@@ -11,6 +11,8 @@ public class Bill {
     String customerID;
     Date effectiveDates;
     String coverageDetail;
+
+    int cameraPrice;
     int pirce;
     int totalCost;
     public Bill(){}
@@ -25,8 +27,9 @@ public class Bill {
                 "        customerID = %s\n" +
                 "        effectiveDates = %s \n" +
                 "        price = %d \n" +
+                "        camera price = %d \n" +
                 "        totalCost = %d\n" +
                 "        coverageDetail = %s", serviceContractId, customerName, addressOfProperty, contactNumber1, contactNumber2,
-                customerID, effectiveDates, pirce, totalCost, coverageDetail.length() == 0 ? "None" : coverageDetail);
+                customerID, effectiveDates, pirce, cameraPrice, totalCost, coverageDetail.length() == 0 ? "None" : coverageDetail);
     }
 }
