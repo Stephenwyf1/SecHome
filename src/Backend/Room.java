@@ -53,11 +53,14 @@ public class Room extends Building {
     }
 
     @Override
-    public void uninstallSensor() {
+    public ArrayList<Room> uninstallSensor() {
+        ArrayList<Room> rooms = new ArrayList<>();
         if (this.hasSensor()) {
             SecHomeSystem.getSingletonSystem().location.remove(sensor.id);
             this.sensor = null;
+            rooms.add(this);
         }
+        return rooms;
     }
 
     @Override
@@ -74,16 +77,22 @@ public class Room extends Building {
         return list;
     }
 
-    public void turnOnSensor() {
+    public ArrayList<Room> turnOnSensor() {
+        ArrayList<Room> rooms = new ArrayList<>();
         if (this.hasSensor()) {
             sensor.turnOn();
+            rooms.add(this);
         }
+        return rooms;
     }
 
-    public void turnOffSensor() {
+    public ArrayList<Room> turnOffSensor() {
+        ArrayList<Room> rooms = new ArrayList<>();
         if (this.hasSensor()) {
             sensor.turnOff();
+            rooms.add(this);
         }
+        return rooms;
     }
 
     public UUID getSectionID() {
