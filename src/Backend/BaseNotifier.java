@@ -1,3 +1,4 @@
+package Backend;
 public class BaseNotifier implements SystemNotifier {
 
     String emergencyContact;
