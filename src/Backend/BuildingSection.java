@@ -13,6 +13,7 @@ public class BuildingSection extends Building {
     BuildingSection() {
         super();
         this.collection = new HashSet<>();
+        this.isInstalledCamera = false;
     }
 
     @Override
