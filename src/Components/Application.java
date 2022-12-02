@@ -116,7 +116,16 @@ public class Application extends JFrame{
             }
         });
 
+        // BuildBill
+        btn4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BuildBillDialog newBuildBillDialog = new BuildBillDialog();
+            }
+        });
 
+
+        // Help info
         btn5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
