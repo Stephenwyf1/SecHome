@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c24db4e6-de84-4c9f-9d9f-2a8af5a5e468" name="Default Changelist" comment="reorganize the package relation and refine the GUI" />
+    <list default="true" id="c24db4e6-de84-4c9f-9d9f-2a8af5a5e468" name="Default Changelist" comment="reorganize the package relation and refine the GUI">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Application$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SecHome/Application$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Application$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SecHome/Application$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Application$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SecHome/Application$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Application$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SecHome/Application$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Application$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SecHome/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Components/Dialog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Components/RoomInfoDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SecHome/Components/RoomInfoDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Dialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/InstallAndUninstallDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/RoomInfoDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/RoomInfoDialog.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

@@ -8,23 +8,21 @@ import Backend.Room;
 import Backend.SecHomeSystem;
 import Backend.Sensor;
 import Components.*;
-import Components.Dialog;
+import Components.InstallAndUninstallDialog;
 
 public class Application extends JFrame{
 
     private static SecHomeSystem system;
     static JFrame frame;
     static JPanel panel = new JPanel(null);
-    static JButton btn1 = new JButton("Install");
-    static JButton btn2 = new JButton("Uninstall");
-    static JButton btn3 = new JButton("Active");
-    static JButton btn4 = new JButton("Inactive");
-    static JButton btn5 = new JButton("Schedual");
-    static JButton btn6 = new JButton("Help");
+    static JButton btn1 = new JButton("Install/Unistall");
+    static JButton btn2 = new JButton("Active/Inactive");
+    static JButton btn3 = new JButton("Schedual");
+    static JButton btn4 = new JButton("Help");
 
     public void initialize() {
         frame = new JFrame("Control Panel");
-        frame.setSize(1000,800);
+        frame.setSize(1200,800);
         frame.setLocation(100,100);
         frame.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -37,7 +35,7 @@ public class Application extends JFrame{
         c.gridy = 0;
         c.weightx = 0.9;
         c.weighty = 1;
-        c.gridheight = 6;
+        c.gridheight = 8;
         c.gridwidth = 1;
         frame.add(panel,c);
 
@@ -58,12 +56,6 @@ public class Application extends JFrame{
 
         c.gridy = 3;
         frame.add(btn4,c);
-
-        c.gridy = 4;
-        frame.add(btn5,c);
-
-        c.gridy = 5;
-        frame.add(btn6,c);
 
         // initilize rooms location
         Room[][] layout = system.getRoomLayOut();
@@ -115,18 +107,12 @@ public class Application extends JFrame{
         btn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Dialog newDialog = new Dialog(frame,"Install");
+                InstallAndUninstallDialog newInstallAndUninstallDialog = new InstallAndUninstallDialog(frame,"Install/Unistall");
             }
         });
 
-        btn2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Dialog newDialog = new Dialog(frame,"Unistall");
-            }
-        });
 
-        btn6.addActionListener(new ActionListener() {
+        btn4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 HelpDialog newDialog = new HelpDialog();
