@@ -202,7 +202,7 @@ public class SecHomeSystem {
 //        // TODO: notify the GUI that this sensor should be red
 //    }
 
-    public void notifyEmergency(Room room) {
+    public String notifyEmergency(Room room) {
         int x = room.getX();
         int y = room.getY();
         BaseNotifier notifier = new BaseNotifier(contactNumber1, contactNumber2);
@@ -215,6 +215,7 @@ public class SecHomeSystem {
             SecNotifier secNotifier = new SecNotifier(notifier);
             secNotifier.notifyEmergency(info);
         }
+        return info;
     }
     public boolean verifyResponseCode(String responseCode) {
         return responseCode.equals(this.responseCode);
@@ -232,15 +233,13 @@ public class SecHomeSystem {
     }
 
     public ArrayList<Room> getASensorForTest() throws Exception {
-        ArrayList<Room> rooms = new ArrayList<>();
         if (this.location.size() == 0) {
             throw new Exception("Please install at least one sensor to test.");
         } else {
             for (UUID key : this.location.keySet()) {
                 location.get(key).getSensor().report();
-                rooms.add(location.get(key));
             }
-            return rooms;
+            return errorSensors;
         }
     }
 
