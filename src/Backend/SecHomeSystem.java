@@ -27,9 +27,10 @@ public class SecHomeSystem {
 
     // to locate a Room by reported information from a sensor
     HashMap<UUID, Room> location;
-
     // to locate a Room by its id
     HashMap<UUID, Room> map;
+
+    HashMap<UUID, BuildingSection> sectionMap;
     private volatile static SecHomeSystem singletonSecHomeSystem;
     private SecHomeSystem(){
         try {
@@ -54,6 +55,7 @@ public class SecHomeSystem {
 
             this.location = new HashMap<>();
             this.map = new HashMap<>();
+            this.sectionMap = new HashMap<>();
 
             roomLayOut = new Room[10][10];
             building = new BuildingSection();
@@ -91,6 +93,10 @@ public class SecHomeSystem {
                 }
             }
             status = SystemStatus.RUNNING;
+            sectionMap.put(section1.getId(), section1);
+            sectionMap.put(section2.getId(), section2);
+            sectionMap.put(section3.getId(), section3);
+
         } catch (Exception e) {
             System.out.println(Arrays.toString(e.getStackTrace()));
             System.exit(2);

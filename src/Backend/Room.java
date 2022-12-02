@@ -29,6 +29,9 @@ public class Room extends Building {
 
     @Override
     public ArrayList<Room> installSensor(SensorType sensorType, Boolean isNeedCamera) throws Exception {
+        if (sensorType != SecHomeSystem.getSingletonSystem().sectionMap.get(this.getSectionID()).currentInstallation) {
+            throw new Exception("A section can only have one type of sensor");
+        }
         ArrayList<Room> rooms = new ArrayList<>();
         if (!this.hasSensor()) {
             this.sensor = switch (sensorType) {
