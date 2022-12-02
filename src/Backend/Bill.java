@@ -26,7 +26,7 @@ public class Bill {
                 "        effectiveDates = %s \n" +
                 "        price = %d \n" +
                 "        totalCost = %d\n" +
-                "        coverageDetail = %s\n", serviceContractId, customerName, addressOfProperty, contactNumber1, contactNumber2,
+                "        coverageDetail = %s", serviceContractId, customerName, addressOfProperty, contactNumber1, contactNumber2,
                 customerID, effectiveDates, pirce, totalCost, coverageDetail.length() == 0 ? "None" : coverageDetail);
     }
 }

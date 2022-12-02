@@ -19,6 +19,7 @@ public class BuildBillDialog extends JDialog{
         box.addItem("Secure Alarm System");
         JButton get = new JButton("Get");
         JTextArea text= new JTextArea();
+        JScrollPane scroll = new JScrollPane(text);
         this.add(box);
         this.add(get);
         this.add(text);

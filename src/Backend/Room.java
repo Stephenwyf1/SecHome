@@ -24,7 +24,7 @@ public class Room extends Building {
 
     @Override
     public int computePrice(SensorType sensorType) {
-        return this.sensor != null && this.sensor.sensorType == sensorType ? this.sensor.getPrice() : 0;
+        return (this.hasSensor() && this.getSensor().getSensorType() == sensorType) ? this.sensor.getPrice() : 0;
     }
 
     @Override

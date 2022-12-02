@@ -56,7 +56,7 @@ public class FireAlarmBillBuilder implements BillBuilder {
     public BillBuilder buildCoverageDetail(List<Room> rooms) {
         StringBuilder builder = new StringBuilder();
         for (Room room : rooms) {
-            builder.append(String.format("Room: (%d, %d), RoomID: %s, Sensor: %s, Sensor type: %s\n", room.x, room.y, room.getId(), room.getSensor().id, room.getSensor().sensorType));
+            builder.append(String.format("\n        Room: (%d, %d), RoomID: %s, Sensor: %s, Sensor type: %s\n", room.x, room.y, room.getId(), room.getSensor().id, room.getSensor().sensorType));
         }
         this.bill.coverageDetail = builder.toString();
         return this;
