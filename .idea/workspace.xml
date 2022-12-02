@@ -1,61 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c24db4e6-de84-4c9f-9d9f-2a8af5a5e468" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Application$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SecHome/Application$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SecHome/Application.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/BaseNotifier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/BaseNotifierDecorator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Bill.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/BillBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/BillDirector.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Building.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/BuildingSection.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Camera.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/DeviceListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/FireAlarmBill.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/FireAlarmBillBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/FireNotifier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/FireSensor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/MotionSensor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Room$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Room.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/SecHomeSystem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/SecNotifier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/SecurityBill.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/SecurityBillBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/Sensor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/SensorState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/SensorType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/SystemNotifier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SecHome/SystemTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BaseNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/BaseNotifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BaseNotifierDecorator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/BaseNotifierDecorator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/Bill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BillBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/BillBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BillDirector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/BillDirector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/Building.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BuildingSection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/BuildingSection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DeviceListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/DeviceListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FireAlarmBill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/FireAlarmBill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FireAlarmBillBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/FireAlarmBillBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FireNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/FireNotifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FireSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/FireSensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MotionSensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/MotionSensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SecHomeSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/SecHomeSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SecNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/SecNotifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SecurityBill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/SecurityBill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SecurityBillBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/SecurityBillBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Sensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/Sensor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SensorState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/SensorState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SensorType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/SensorType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SystemNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/SystemNotifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SystemTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/SystemTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="c24db4e6-de84-4c9f-9d9f-2a8af5a5e468" name="Default Changelist" comment="reorganize the package relation and refine the GUI" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -116,6 +62,14 @@
       <option name="presentableId" value="Default" />
       <updated>1669891805967</updated>
     </task>
+    <task id="LOCAL-00001" summary="reorganize the package relation and refine the GUI">
+      <created>1669954536412</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1669954536412</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -128,6 +82,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="reorganize the package relation and refine the GUI" />
+    <option name="LAST_COMMIT_MESSAGE" value="reorganize the package relation and refine the GUI" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
