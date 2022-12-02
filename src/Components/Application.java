@@ -12,6 +12,7 @@ import java.util.UUID;
 import Backend.Room;
 import Backend.SecHomeSystem;
 import Backend.Sensor;
+import Backend.SystemStatus;
 
 public class Application extends JFrame{
 
@@ -125,7 +126,10 @@ public class Application extends JFrame{
         panel.add(g);
     }
 
-
+    public void listen () {
+        while (system.getStatus() != SystemStatus.ALERTING) continue;
+        return;
+    }
 
     public static void main(String[] args) {
 
@@ -162,10 +166,13 @@ public class Application extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 try {
                     ArrayList<Room> list = system.getASensorForTest();
+                    ArrayList<String> alert = new ArrayList<>();
                     for (Room each : list) {
                         Application.paintSingleRoom(each);
+                        alert.add(system.notifyEmergency(each));
                         Application.panel.updateUI();
                     }
+                    new AlertDialog(list,alert);
                     new SuccessDialog();
                 } catch (Exception exception) {
                     new ErrorDialog(exception.getMessage());

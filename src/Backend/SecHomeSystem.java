@@ -56,7 +56,7 @@ public class SecHomeSystem {
             } catch (IOException | ParseException e) {
                 System.exit(2);
             }
-
+            this.errorSensors = new ArrayList<>();
             this.location = new HashMap<>();
             this.map = new HashMap<>();
             this.sectionMap = new HashMap<>();
@@ -105,6 +105,10 @@ public class SecHomeSystem {
             System.out.println(Arrays.toString(e.getStackTrace()));
             System.exit(2);
         }
+    }
+
+    public SystemStatus getStatus() {
+        return status;
     }
 
     public ArrayList<Room> getErrorSensors() {
@@ -239,6 +243,7 @@ public class SecHomeSystem {
             for (UUID key : this.location.keySet()) {
                 location.get(key).getSensor().report();
             }
+
             return errorSensors;
         }
     }
