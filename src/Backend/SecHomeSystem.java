@@ -155,7 +155,7 @@ public class SecHomeSystem {
     }
 
     public void alert(UUID sensorId) {
-        Room room = location.get(sensorId);
+        Room room = getRoombySensorId(sensorId);
         int x = room.getX();
         int y = room.getY();
         System.out.println("Sensor: "+sensorId.toString() +
@@ -191,7 +191,14 @@ public class SecHomeSystem {
     }
 
     public Room getRoomById(UUID id) {
-        System.out.println(id);
+        return map.get(id);
+    }
+
+    public Room getRoombySensorId(UUID id){
         return location.get(id);
+    }
+
+    public BuildingSection getSectionById(UUID id) {
+        return sectionMap.get(id);
     }
 }

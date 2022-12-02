@@ -1,12 +1,15 @@
 package Components;
 
+import Backend.Building;
 import Backend.Room;
 import Backend.SecHomeSystem;
+import Backend.SensorType;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class InstallAndUninstallDialog extends JDialog{
@@ -60,18 +63,35 @@ public class InstallAndUninstallDialog extends JDialog{
                         try {
                             UUID id = UUID.fromString(input.getText());
                             int option = box1.getSelectedIndex();
-
-                            switch (option) {
+                            Building building;
+                            building = switch (option) {
                                 // By Room
-                                case 0 :
-                                    Room room = system.getRoomById(id);
-                                    // room id doesnt exist
-                                    if (room == null) {
-                                        ErrorDialog err = new ErrorDialog("Room id doesn't exist.");
-                                    } else {
+                                case 0 -> system.getRoomById(id);
+                                case 1 -> system.getSectionById(id);
+                                default -> null;
+                            };
 
+                            // id doesn't exist
+                            if (building == null) {
+                                ErrorDialog err = new ErrorDialog("Room id doesn't exist.");
+                            } else {
+                                SensorType type;
+                                boolean needCam = false;
+                                if (box2.getSelectedIndex() == 0) {
+                                    type = SensorType.FIRE;
+                                } else {
+                                    type = SensorType.SEC;
+                                    if (box2.getSelectedIndex() == 2) {
+                                        needCam = true;
                                     }
+                                }
 
+                                ArrayList<Room> list = building.installSensor(type,needCam);
+                                for (Room each : list) {
+                                    Application.paintSingleRoom(each);
+                                    Application.panel.updateUI();
+                                }
+                                new SuccessDialog();
                             }
                         } catch (Exception exception) {
                             ErrorDialog err = new ErrorDialog(exception.getMessage());
@@ -83,6 +103,33 @@ public class InstallAndUninstallDialog extends JDialog{
 
             // uninstall action event
             uninstallBtn = new JButton("Uninstall");
+            uninstallBtn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try{
+                        if (input.getText().equals("")) {
+                            new ErrorDialog("Please enter the room or section ID you want to uninstall.");
+                        }
+
+                        int option = box1.getSelectedIndex();
+                        UUID id = UUID.fromString(input.getText());
+                        Building building = switch (option) {
+                            // By Room
+                            case 0 -> system.getRoomById(id);
+                            case 1 -> system.getSectionById(id);
+                            default -> null;
+                        };
+
+                        building.uninstallSensor();
+                        new SuccessDialog();
+
+                    } catch (Exception exception) {
+                        new ErrorDialog(exception.getMessage());
+                    }
+                }
+            });
+
+
             this.add(installBtn);
             this.add(uninstallBtn);
             this.setVisible(true);

@@ -1,3 +1,5 @@
+package Components;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -7,20 +9,19 @@ import java.awt.event.ActionListener;
 import Backend.Room;
 import Backend.SecHomeSystem;
 import Backend.Sensor;
-import Components.*;
-import Components.InstallAndUninstallDialog;
 
 public class Application extends JFrame{
 
     private static SecHomeSystem system;
     static JFrame frame;
     static JPanel panel = new JPanel(null);
-    static JButton btn1 = new JButton("Install/Unistall");
+    static JButton btn1 = new JButton("Install/Uninstall");
     static JButton btn2 = new JButton("Active/Inactive");
-    static JButton btn3 = new JButton("Schedual");
-    static JButton btn4 = new JButton("Help");
+    static JButton btn3 = new JButton("Schedule");
+    static JButton btn4 = new JButton("Build Bill");
+    static JButton btn5 = new JButton("Help");
 
-    public void initialize() {
+    public static void initialize() {
         frame = new JFrame("Control Panel");
         frame.setSize(1200,800);
         frame.setLocation(100,100);
@@ -57,6 +58,9 @@ public class Application extends JFrame{
         c.gridy = 3;
         frame.add(btn4,c);
 
+        c.gridy = 4;
+        frame.add(btn5,c);
+
         // initilize rooms location
         Room[][] layout = system.getRoomLayOut();
         for (int i = 0; i < layout.length; i++) {
@@ -67,25 +71,27 @@ public class Application extends JFrame{
             }
         }
 
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setVisible(true);
+        
     }
 
 
-    public void paintSingleRoom(Room room) {
+    public static void paintSingleRoom(Room room) {
 
         int rate = 80;
         int off = 20;
 
-        String lable = "(" + room.getX() + "," + room.getY() + ")";
-        JButton g = new JButton(lable);
-
+        String label = "(" + room.getX() + "," + room.getY() + ")";
+        JButton g = new JButton(label);
         if (room.getSensor() != null) {
             Sensor s = room.getSensor();
-            switch (s.getState()) {
-                case ON -> g.setForeground(Color.GREEN);
-                case OFF -> g.setForeground(Color.RED);
-                case ERROR -> g.setForeground(Color.YELLOW);
-            }
+            Color color = switch (s.getState()) {
+                case ON -> Color.GREEN;
+                case OFF -> Color.RED;
+                case ERROR -> Color.YELLOW;
+            };
+            g.setForeground(color);
         }
 
         g.setBounds(room.getX() * rate + off,room.getY() * rate + off,40,20);
@@ -95,7 +101,6 @@ public class Application extends JFrame{
                 RoomInfoDialog dialog = new RoomInfoDialog(room);
             }
         });
-
         panel.add(g);
     }
 
@@ -112,7 +117,7 @@ public class Application extends JFrame{
         });
 
 
-        btn4.addActionListener(new ActionListener() {
+        btn5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 HelpDialog newDialog = new HelpDialog();
