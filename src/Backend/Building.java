@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-abstract class Building {
+public abstract class Building {
     private final UUID id;
     Building() {
         this.id = UUID.randomUUID();

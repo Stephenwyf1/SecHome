@@ -173,4 +173,9 @@ public class SecHomeSystem {
     public Room[][] getRoomLayOut() {
         return this.roomLayOut;
     }
+
+    public Room getRoomById(UUID id) {
+        System.out.println(id);
+        return location.get(id);
+    }
 }
