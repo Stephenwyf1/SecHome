@@ -154,7 +154,16 @@ public class Application extends JFrame{
         btn5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ArrayList<Room> list;
+                try {
+                    ArrayList<Room> list = system.getASensorForTest();
+                    for (Room each : list) {
+                        Application.paintSingleRoom(each);
+                        Application.panel.updateUI();
+                    }
+                    new SuccessDialog();
+                } catch (Exception exception) {
+                    new ErrorDialog(exception.getMessage());
+                }
             }
         });
 
