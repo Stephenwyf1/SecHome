@@ -34,6 +34,9 @@ public abstract class Sensor {
         return this.price;
     }
 
+    public void setState(SensorState state) {
+        this.state = state;
+    }
     public SensorType getSensorType() { return this.sensorType; }
     public SensorState getSensorState() { return this.state; }
     public UUID getId() { return this.id; }
