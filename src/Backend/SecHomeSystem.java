@@ -32,12 +32,16 @@ public class SecHomeSystem {
 
     HashMap<UUID, BuildingSection> sectionMap;
     private volatile static SecHomeSystem singletonSecHomeSystem;
+    private String responseCode;
+    private ArrayList<Room> testSensors;
+
     private SecHomeSystem(){
         try {
             String customerInfo = "setting.properties";
             Properties props = new Properties();
             try {
                 props.load(new java.io.FileInputStream(customerInfo));
+                responseCode = props.getProperty("responseCode");
                 serviceContractId = props.getProperty("serviceContractId");
                 addressOfProperty = props.getProperty("addressOfProperty");
                 customerName = props.getProperty("customerName");
@@ -187,6 +191,20 @@ public class SecHomeSystem {
         // TODO: notify the GUI that this sensor should be red
     }
 
+    public boolean verifyResponseCode(String responseCode) {
+        return responseCode == this.responseCode;
+    }
+    public void turnOffAlertings() {
+        this.setStatus(SystemStatus.RUNNING);
+        for (Room room : testSensors) {
+            room.getSensor().setState(SensorState.ON);
+        }
+    }
+
+    private void setStatus(SystemStatus status) {
+        this.status = status;
+    }
+
     public ArrayList<Room> getASensorForTest() throws Exception {
         ArrayList<Room> rooms = new ArrayList<>();
         if (this.location.size() == 0) {
@@ -196,9 +214,11 @@ public class SecHomeSystem {
                 location.get(key).getSensor().report();
                 rooms.add(location.get(key));
             }
+            this.testSensors = rooms;
             return rooms;
         }
     }
+
     public Room[][] getRoomLayOut() {
         return this.roomLayOut;
     }
