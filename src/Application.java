@@ -1,29 +1,26 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.UUID;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import Backend.Room;
+import Backend.SecHomeSystem;
+import Backend.Sensor;
+import Components.*;
+import Components.Dialog;
 
 public class Application extends JFrame{
 
     private static SecHomeSystem system;
-    JFrame frame;
-    JPanel panel = new JPanel(null);
-    JButton btn1 = new JButton("Install");
-    JButton btn2 = new JButton("Uninstall");
-    JButton btn3 = new JButton("Active");
-    JButton btn4 = new JButton("Inactive");
-    JButton btn5 = new JButton("Schedual");
-    JButton btn6 = new JButton("Help");
-
-    public static void main(String[] args) {
-
-        system = SecHomeSystem.getSingletonSystem();
-        Application app = new Application();
-        app.initialize();
-
-    }
-
+    static JFrame frame;
+    static JPanel panel = new JPanel(null);
+    static JButton btn1 = new JButton("Install");
+    static JButton btn2 = new JButton("Uninstall");
+    static JButton btn3 = new JButton("Active");
+    static JButton btn4 = new JButton("Inactive");
+    static JButton btn5 = new JButton("Schedual");
+    static JButton btn6 = new JButton("Help");
 
     public void initialize() {
         frame = new JFrame("Control Panel");
@@ -69,7 +66,7 @@ public class Application extends JFrame{
         frame.add(btn6,c);
 
         // initilize rooms location
-        Room[][] layout = system.roomLayOut;
+        Room[][] layout = system.getRoomLayOut();
         for (int i = 0; i < layout.length; i++) {
             for (int j = 0; j < layout.length; j++) {
                 if (layout[i][j] != null) {
@@ -88,20 +85,55 @@ public class Application extends JFrame{
         int off = 20;
 
         String lable = "(" + room.getX() + "," + room.getY() + ")";
-        TextArea g = new TextArea(lable);
+        JButton g = new JButton(lable);
 
         if (room.getSensor() != null) {
             Sensor s = room.getSensor();
-            switch (s.state) {
-                case ON -> g.setBackground(Color.GREEN);
-                case OFF -> g.setBackground(Color.RED);
-                case ERROR -> g.setBackground(Color.YELLOW);
+            switch (s.getState()) {
+                case ON -> g.setForeground(Color.GREEN);
+                case OFF -> g.setForeground(Color.RED);
+                case ERROR -> g.setForeground(Color.YELLOW);
             }
         }
 
         g.setBounds(room.getX() * rate + off,room.getY() * rate + off,40,20);
+        g.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RoomInfoDialog dialog = new RoomInfoDialog(room);
+            }
+        });
 
         panel.add(g);
+    }
+
+    public static void main(String[] args) {
+
+        system = SecHomeSystem.getSingletonSystem();
+        Application app = new Application();
+        app.initialize();
+        btn1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Dialog newDialog = new Dialog(frame,"Install");
+            }
+        });
+
+        btn2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Dialog newDialog = new Dialog(frame,"Unistall");
+            }
+        });
+
+        btn6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                HelpDialog newDialog = new HelpDialog();
+            }
+        });
+
+
     }
 
 
