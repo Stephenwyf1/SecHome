@@ -20,7 +20,6 @@ public class SecHomeSystem {
     BuildingSection section1;
     BuildingSection section2;
     BuildingSection section3;
-
     SystemStatus status;
 
     // to locate a Room by reported information from a sensor
@@ -52,6 +51,7 @@ public class SecHomeSystem {
             roomLayOut = new Room[10][10];
             building = new BuildingSection();
             section1 = new BuildingSection();
+            building.addBuilding(section1);
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 10; j++){
                     Room room = new Room(i, j);
@@ -60,6 +60,7 @@ public class SecHomeSystem {
                 }
             }
             section2 = new BuildingSection();
+            building.addBuilding(section2);
             for (int i = 3; i < 7; i++) {
                 for (int j = 0; j < 10; j++){
                     Room room = new Room(i, j);
@@ -68,6 +69,7 @@ public class SecHomeSystem {
                 }
             }
             section3 = new BuildingSection();
+            building.addBuilding(section3);
             for (int i = 7; i < 10; i++) {
                 for (int j = 0; j < 10; j++){
                     Room room = new Room(i, j);
@@ -80,6 +82,14 @@ public class SecHomeSystem {
             System.out.println(Arrays.toString(e.getStackTrace()));
             System.exit(2);
         }
+    }
+
+    public void activateSystem() {
+        this.building.turnOnSensor();
+    }
+
+    public void deActivateSystem() {
+        this.building.turnOffSensor();
     }
 
     public static SecHomeSystem getSingletonSystem(){
