@@ -14,9 +14,9 @@ public abstract class Building {
     abstract public int computePrice();
     abstract public int computePrice(SensorType sensorType);
     abstract public ArrayList<Room> installSensor(SensorType sensorType, Boolean isNeedCamera) throws Exception;
-    abstract public void turnOnSensor();
-    abstract public void turnOffSensor();
-    abstract public void uninstallSensor();
+    abstract public ArrayList<Room> turnOnSensor();
+    abstract public ArrayList<Room> turnOffSensor();
+    abstract public ArrayList<Room> uninstallSensor();
     abstract public List<Room> getRooms();
     abstract public List<Room> getRooms(SensorType sensorType);
     public UUID getId(){

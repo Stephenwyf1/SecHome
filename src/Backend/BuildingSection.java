@@ -46,26 +46,32 @@ public class BuildingSection extends Building {
     }
 
     @Override
-    public void turnOnSensor() {
+    public ArrayList<Room> turnOnSensor() {
+        ArrayList<Room> rooms = new ArrayList<>();
         for (Building b : collection) {
-            b.turnOnSensor();
+            rooms.addAll(b.turnOnSensor());
         }
+        return rooms;
     }
 
     @Override
-    public void turnOffSensor() {
+    public ArrayList<Room> turnOffSensor() {
+        ArrayList<Room> rooms = new ArrayList<>();
         for (Building b : collection) {
-            b.turnOffSensor();
+            rooms.addAll(b.turnOffSensor());
         }
+        return rooms;
     }
 
     @Override
-    public void uninstallSensor() {
+    public ArrayList<Room> uninstallSensor() {
+        ArrayList<Room> rooms = new ArrayList<>();
         this.isInstalledCamera = false;
         this.currentInstallation = null;
         for (Building b : collection) {
-            b.uninstallSensor();
+            rooms.addAll(b.uninstallSensor());
         }
+        return rooms;
     }
 
     @Override
