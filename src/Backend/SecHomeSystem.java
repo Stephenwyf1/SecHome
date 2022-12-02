@@ -26,10 +26,12 @@ public class SecHomeSystem {
     SystemStatus status;
 
     // to locate a Room by reported information from a sensor
-    HashMap<UUID, Room> location = new HashMap<>();
-    private volatile static SecHomeSystem singletonSecHomeSystem;
-    String emgNumber = "12311325155";
+    HashMap<UUID, Room> location;
+    // to locate a Room by its id
+    HashMap<UUID, Room> map;
 
+    HashMap<UUID, BuildingSection> sectionMap;
+    private volatile static SecHomeSystem singletonSecHomeSystem;
     private SecHomeSystem(){
         try {
             String customerInfo = "setting.properties";
@@ -51,6 +53,10 @@ public class SecHomeSystem {
                 System.exit(2);
             }
 
+            this.location = new HashMap<>();
+            this.map = new HashMap<>();
+            this.sectionMap = new HashMap<>();
+
             roomLayOut = new Room[10][10];
             building = new BuildingSection();
             section1 = new BuildingSection();
@@ -58,6 +64,8 @@ public class SecHomeSystem {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 10; j++){
                     Room room = new Room(i, j);
+                    map.put(room.getId(), room);
+                    room.setSectionID(section1.getId());
                     section1.addBuilding(room);
                     roomLayOut[i][j] = room;
                 }
@@ -67,6 +75,8 @@ public class SecHomeSystem {
             for (int i = 3; i < 7; i++) {
                 for (int j = 0; j < 10; j++){
                     Room room = new Room(i, j);
+                    map.put(room.getId(), room);
+                    room.setSectionID(section2.getId());
                     section2.addBuilding(room);
                     roomLayOut[i][j] = room;
                 }
@@ -76,11 +86,17 @@ public class SecHomeSystem {
             for (int i = 7; i < 10; i++) {
                 for (int j = 0; j < 10; j++){
                     Room room = new Room(i, j);
+                    map.put(room.getId(), room);
+                    room.setSectionID(section3.getId());
                     section3.addBuilding(room);
                     roomLayOut[i][j] = room;
                 }
             }
             status = SystemStatus.RUNNING;
+            sectionMap.put(section1.getId(), section1);
+            sectionMap.put(section2.getId(), section2);
+            sectionMap.put(section3.getId(), section3);
+
         } catch (Exception e) {
             System.out.println(Arrays.toString(e.getStackTrace()));
             System.exit(2);
@@ -143,14 +159,14 @@ public class SecHomeSystem {
         int x = room.getX();
         int y = room.getY();
         System.out.println("Sensor: "+sensorId.toString() +
-                "\nRoom: "+"("+x+","+y+") has reported an Emergency! Alerting type: "+room.sensor.sensorType+
+                "\nRoom: "+"("+x+","+y+") has reported an Emergency! Alerting type: "+ room.getSensor().sensorType+
                 ". Calling: "+this.contactNumber1 + ". Calling:"+this.contactNumber2);
         if (status == SystemStatus.RUNNING) {
             status = SystemStatus.ALERTING;
             final long timeInterval = 1000;
                 new Thread(() -> {
                     while(status == SystemStatus.ALERTING) {
-                        BaseNotifier notifier = new BaseNotifier(emgNumber);
+                        BaseNotifier notifier = new BaseNotifier(customerID);
                         if (room.getSensor().sensorType == SensorType.FIRE) {
                             FireNotifier fireNotifier = new FireNotifier(notifier);
                             fireNotifier.notifyEmergency();

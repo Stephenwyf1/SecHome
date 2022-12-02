@@ -8,7 +8,9 @@ import java.util.UUID;
 public class Room extends Building {
     final int x;
     final int y;
-    Sensor sensor = null;
+    private Sensor sensor = null;
+
+    private UUID sectionID;
     public Room(int x, int y) {
         super();
         this.x = x;
@@ -26,7 +28,10 @@ public class Room extends Building {
     }
 
     @Override
-    public ArrayList<Room> installSensor(SensorType sensorType, Boolean isNeedCamera) {
+    public ArrayList<Room> installSensor(SensorType sensorType, Boolean isNeedCamera) throws Exception {
+        if (sensorType != SecHomeSystem.getSingletonSystem().sectionMap.get(this.getSectionID()).currentInstallation) {
+            throw new Exception("A section can only have one type of sensor");
+        }
         ArrayList<Room> rooms = new ArrayList<>();
         if (!this.hasSensor()) {
             this.sensor = switch (sensorType) {
@@ -38,7 +43,7 @@ public class Room extends Building {
             rooms.add(this);
         }
         else {
-            System.out.println("This room (id: "+this.getId()+") already had a sensor. " +
+            throw new Exception("This room (id: "+this.getId()+") already had a sensor. " +
                     "Please uninstall it before you try to install a new one.");
         }
         return rooms;
@@ -78,6 +83,14 @@ public class Room extends Building {
             sensor.turnOff();
         } else
             throw new NullPointerException("Sensor not installed");
+    }
+
+    public UUID getSectionID() {
+        return sectionID;
+    }
+
+    public void setSectionID(UUID sectionID) {
+        this.sectionID = sectionID;
     }
 
     public boolean hasSensor() {
