@@ -4,14 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class SecHomeSystem {
-    static final String serviceContractId;
-    static Properties props;
-    static final String customerName;
-    static final String addressOfProperty;
+    private String serviceContractId;
+    String customerName;
+    private String addressOfProperty;
     String contactNumber1;
     String contactNumber2;
-    static final String customerID;
-    static final Date effectiveDates;
+    private String customerID;
+    private Date effectiveDates;
     String password;
     static int fireSensorPrice;
     static int motionSensorPrice;
@@ -22,34 +21,34 @@ public class SecHomeSystem {
     BuildingSection section2;
     BuildingSection section3;
 
+    SystemStatus status;
+
     // to locate a Room by reported information from a sensor
     HashMap<UUID, Room> location = new HashMap<>();
     private volatile static SecHomeSystem singletonSecHomeSystem;
     String emgNumber = "12311325155";
 
-    static {
-        String customerInfo = "setting.properties";
-        props = new Properties();
-        try {
-            props.load(new java.io.FileInputStream(customerInfo));
-            serviceContractId = props.getProperty("serviceContractId");
-            addressOfProperty = props.getProperty("addressOfProperty");
-            customerName = props.getProperty("customerName");
-            effectiveDates = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(props.getProperty("effectiveDates"));
-            customerID = props.getProperty("customerID");
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private SecHomeSystem(){
         try {
-            contactNumber1 = props.getProperty("contactNumber1");
-            contactNumber2 = props.getProperty("contactNumber2");
-            password = props.getProperty("password");
-            fireSensorPrice = Integer.parseInt(props.getProperty("fireSensorPrice"));
-            motionSensorPrice = Integer.parseInt(props.getProperty("motionSensorPrice"));
-            cameraPrice = Integer.parseInt(props.getProperty("cameraPrice"));
+            String customerInfo = "setting.properties";
+            Properties props = new Properties();
+            try {
+                props.load(new java.io.FileInputStream(customerInfo));
+                serviceContractId = props.getProperty("serviceContractId");
+                addressOfProperty = props.getProperty("addressOfProperty");
+                customerName = props.getProperty("customerName");
+                effectiveDates = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(props.getProperty("effectiveDates"));
+                customerID = props.getProperty("customerID");
+                contactNumber1 = props.getProperty("contactNumber1");
+                contactNumber2 = props.getProperty("contactNumber2");
+                password = props.getProperty("password");
+                fireSensorPrice = Integer.parseInt(props.getProperty("fireSensorPrice"));
+                motionSensorPrice = Integer.parseInt(props.getProperty("motionSensorPrice"));
+                cameraPrice = Integer.parseInt(props.getProperty("cameraPrice"));
+            } catch (IOException | ParseException e) {
+                System.exit(2);
+            }
+
             roomLayOut = new Room[10][10];
             building = new BuildingSection();
             section1 = new BuildingSection();
@@ -76,7 +75,7 @@ public class SecHomeSystem {
                     roomLayOut[i][j] = room;
                 }
             }
-
+            status = SystemStatus.RUNNING;
         } catch (Exception e) {
             System.out.println(Arrays.toString(e.getStackTrace()));
             System.exit(2);
@@ -96,6 +95,30 @@ public class SecHomeSystem {
         return bill;
     }
 
+    public String getAddressOfProperty() {
+        return addressOfProperty;
+    }
+
+    public String getCustomerID() {
+        return customerID;
+    }
+
+    public Date getEffectiveDates() {
+        return effectiveDates;
+    }
+
+    public String getServiceContractId() {
+        return serviceContractId;
+    }
+
+    public void setContactNumber1(String contactNumber1) {
+        this.contactNumber1 = contactNumber1;
+    }
+
+    public void setContactNumber2(String contactNumber2) {
+        this.contactNumber2 = contactNumber2;
+    }
+
     public boolean verifyPassword(String password) {
         return password.equals(this.password);
     }
@@ -105,15 +128,30 @@ public class SecHomeSystem {
         int x = room.getX();
         int y = room.getY();
         System.out.println("Sensor: "+sensorId.toString() +
-                "\nRoom: "+"("+x+","+y+") has reported an Emergency!, Calling:"+this.emgNumber);
-        BaseNotifier notifier = new BaseNotifier(emgNumber);
-        if (room.getSensor().sensorType == SensorType.FIRE) {
-            FireNotifier fireNotifier = new FireNotifier(notifier);
-            fireNotifier.notifyEmergency();
-        } else if (room.getSensor().sensorType == SensorType.SEC) {
-            SecNotifier secNotifier = new SecNotifier(notifier);
-            secNotifier.notifyEmergency();
+                "\nRoom: "+"("+x+","+y+") has reported an Emergency! Alerting type: "+room.sensor.sensorType+
+                ". Calling: "+this.contactNumber1 + ". Calling:"+this.contactNumber2);
+        if (status == SystemStatus.RUNNING) {
+            status = SystemStatus.ALERTING;
+            final long timeInterval = 1000;
+                new Thread(() -> {
+                    while(status == SystemStatus.ALERTING) {
+                        BaseNotifier notifier = new BaseNotifier(emgNumber);
+                        if (room.getSensor().sensorType == SensorType.FIRE) {
+                            FireNotifier fireNotifier = new FireNotifier(notifier);
+                            fireNotifier.notifyEmergency();
+                        } else if (room.getSensor().sensorType == SensorType.SEC) {
+                            SecNotifier secNotifier = new SecNotifier(notifier);
+                            secNotifier.notifyEmergency();
+                        }
+                        try {
+                            Thread.sleep(timeInterval);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }).start();
         }
+
         // TODO: notify the GUI that this sensor should be red
     }
 }

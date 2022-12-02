@@ -20,13 +20,13 @@ public class BillDirector {
             builder = new FireAlarmBillBuilder();
             unitPrice = SecHomeSystem.fireSensorPrice;
         }
-        Bill bill = builder.buildAddressOfProperty(system.addressOfProperty)
+        Bill bill = builder.buildAddressOfProperty(system.getAddressOfProperty())
                 .buildContactNumber1(system.contactNumber1)
                 .buildContactNumber2(system.contactNumber2)
-                .buildCustomerID(system.customerID)
+                .buildCustomerID(system.getCustomerID())
                 .buildCustomerName(system.customerName)
-                .buildEffectiveDates(system.effectiveDates)
-                .buildServiceContractId(system.serviceContractId)
+                .buildEffectiveDates(system.getEffectiveDates())
+                .buildServiceContractId(system.getServiceContractId())
                 .buildPriceDetail(unitPrice)
                 .buildCost(section)
                 .buildCoverageDetail(section.getRooms(sensorType))
