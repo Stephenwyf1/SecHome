@@ -8,4 +8,5 @@ public class MotionSensor extends Sensor {
         this.camera = camera;
         this.price = 2314 + (this.camera == null ? 0 : 1000);
     }
+    public boolean hasCamera(){return this.camera == null;}
 }

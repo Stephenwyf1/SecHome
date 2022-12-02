@@ -3,7 +3,7 @@ package Backend;
 
 import java.util.UUID;
 
-class Sensor {
+public abstract class Sensor {
     SensorState state = SensorState.OFF;
     DeviceListener listener;
     final SensorType sensorType;
@@ -34,4 +34,12 @@ class Sensor {
         return this.price;
     }
 
+    public SensorType getSensorType() { return this.sensorType; }
+    public SensorState getSensorState() { return this.state; }
+    public UUID getId() { return this.id; }
+    abstract public boolean hasCamera();
+
+    public SensorState getState(){
+        return this.state;
+    };
 }

@@ -59,7 +59,7 @@ public class SecurityBillBuilder implements BillBuilder {
     public BillBuilder buildCoverageDetail(List<Room> rooms) {
         StringBuilder builder = new StringBuilder();
         for (Room room : rooms) {
-            builder.append(String.format("Room: (%d, %d), RoomID: %s, Sensor: %s, Sensor type: %s\n", room.x, room.y, room.id, room.sensor.id, room.sensor.sensorType));
+            builder.append(String.format("Room: (%d, %d), RoomID: %s, Sensor: %s, Sensor type: %s\n", room.x, room.y, room.getId(), room.sensor.id, room.sensor.sensorType));
         }
         this.bill.coverageDetail = builder.toString();
         return this;

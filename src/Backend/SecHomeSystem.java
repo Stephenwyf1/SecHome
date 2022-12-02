@@ -169,4 +169,8 @@ public class SecHomeSystem {
 
         // TODO: notify the GUI that this sensor should be red
     }
+
+    public Room[][] getRoomLayOut() {
+        return this.roomLayOut;
+    }
 }
