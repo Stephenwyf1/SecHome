@@ -147,12 +147,27 @@ public class SecHomeSystem {
         return serviceContractId;
     }
 
-    public void setContactNumber1(String contactNumber1) {
-        this.contactNumber1 = contactNumber1;
+    public boolean validateContactNumber(String contactNumber) {
+        String pattern = "^\\d{10}$";
+        return contactNumber.matches(pattern);
     }
 
-    public void setContactNumber2(String contactNumber2) {
-        this.contactNumber2 = contactNumber2;
+    public void setContactNumber1(String contactNumber1) throws Exception {
+        if (validateContactNumber(contactNumber1)) {
+            this.contactNumber1 = contactNumber1;
+        } else {
+            throw new Exception("Illegal Contact Number!");
+        }
+
+    }
+
+    public void setContactNumber2(String contactNumber2) throws Exception {
+        if (validateContactNumber(contactNumber2)) {
+            this.contactNumber2 = contactNumber2;
+        } else {
+            throw new Exception("Illegal Contact Number!");
+        }
+
     }
 
     public boolean verifyPassword(String password) {
@@ -244,5 +259,7 @@ public class SecHomeSystem {
     public ArrayList<Room> turnOnSystem () { return this.building.turnOnSensor();}
 
     public ArrayList<Room> turnOffSystem () { return this.building.turnOffSensor();}
+
+    public void setPassword(String pwd) {this.password = pwd;};
 
 }

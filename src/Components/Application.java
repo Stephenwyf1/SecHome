@@ -24,7 +24,8 @@ public class Application extends JFrame{
     static JButton btn3 = new JButton("Schedule");
     static JButton btn4 = new JButton("Build Bill");
     static JButton btn5 = new JButton("System Test");
-    static JButton btn6 = new JButton("Help");
+    static JButton btn6 = new JButton("Settings");
+    static JButton btn7 = new JButton("Help");
 
     public static void initialize() {
         frame = new JFrame("Control Panel");
@@ -68,6 +69,9 @@ public class Application extends JFrame{
 
         c.gridy = 5;
         frame.add(btn6,c);
+
+        c.gridy = 6;
+        frame.add(btn7,c);
 
         // initilize rooms location
         Room[][] layout = system.getRoomLayOut();
@@ -121,6 +125,8 @@ public class Application extends JFrame{
         panel.add(g);
     }
 
+
+
     public static void main(String[] args) {
 
         system = SecHomeSystem.getSingletonSystem();
@@ -167,8 +173,16 @@ public class Application extends JFrame{
             }
         });
 
-        // Help info
+        // Settings
         btn6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new SettingsDialog();
+            }
+        });
+
+        // Help info
+        btn7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 HelpDialog newDialog = new HelpDialog();
