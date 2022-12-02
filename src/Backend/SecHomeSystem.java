@@ -33,7 +33,7 @@ public class SecHomeSystem {
     HashMap<UUID, BuildingSection> sectionMap;
     private volatile static SecHomeSystem singletonSecHomeSystem;
     private String responseCode;
-    private ArrayList<Room> testSensors;
+    private ArrayList<Room> errorSensors;
 
     private SecHomeSystem(){
         try {
@@ -107,6 +107,10 @@ public class SecHomeSystem {
         }
     }
 
+    public ArrayList<Room> getErrorSensors() {
+        return errorSensors;
+    }
+
     public void activateSystem() {
         this.building.turnOnSensor();
         this.status = SystemStatus.RUNNING;
@@ -174,49 +178,56 @@ public class SecHomeSystem {
         return password.equals(this.password);
     }
 
-    public void alert(UUID sensorId) {
-        Room room = getRoombySensorId(sensorId);
+//    public void alert(UUID sensorId) {
+//        Room room = getRoombySensorId(sensorId);
+//
+//        if (status == SystemStatus.RUNNING) {
+//            status = SystemStatus.ALERTING;
+//            final long timeInterval = 1000;
+//                new Thread(() -> {
+//                    String info = "Sensor: "+sensorId.toString() +
+//                            "\nRoom: "+"("+x+","+y+") has reported an Emergency! Alerting type: "+ room.getSensor().sensorType+
+//                            ". Calling: "+this.contactNumber1 + ". Calling:"+this.contactNumber2;
+//                    while(status == SystemStatus.ALERTING) {
+//
+//                        try {
+//                            Thread.sleep(timeInterval);
+//                        } catch (InterruptedException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                    }
+//                }).start();
+//        }
+//
+//        // TODO: notify the GUI that this sensor should be red
+//    }
+
+    public void notifyEmergency(Room room) {
         int x = room.getX();
         int y = room.getY();
-        System.out.println("Sensor: "+sensorId.toString() +
-                "\nRoom: "+"("+x+","+y+") has reported an Emergency! Alerting type: "+ room.getSensor().sensorType+
-                ". Calling: "+this.contactNumber1 + ". Calling:"+this.contactNumber2);
-        if (status == SystemStatus.RUNNING) {
-            status = SystemStatus.ALERTING;
-            final long timeInterval = 1000;
-                new Thread(() -> {
-                    while(status == SystemStatus.ALERTING) {
-                        BaseNotifier notifier = new BaseNotifier(customerID);
-                        if (room.getSensor().sensorType == SensorType.FIRE) {
-                            FireNotifier fireNotifier = new FireNotifier(notifier);
-                            fireNotifier.notifyEmergency();
-                        } else if (room.getSensor().sensorType == SensorType.SEC) {
-                            SecNotifier secNotifier = new SecNotifier(notifier);
-                            secNotifier.notifyEmergency();
-                        }
-                        try {
-                            Thread.sleep(timeInterval);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }).start();
+        BaseNotifier notifier = new BaseNotifier(contactNumber1, contactNumber2);
+        String info = "\nRoom: "+"("+x+","+y+") has reported an Emergency! Alerting type: "+ room.getSensor().sensorType+
+                ". Calling: "+this.contactNumber1 + ". Calling:"+this.contactNumber2;
+        if (room.getSensor().sensorType == SensorType.FIRE) {
+            FireNotifier fireNotifier = new FireNotifier(notifier);
+            fireNotifier.notifyEmergency(info);
+        } else if (room.getSensor().sensorType == SensorType.SEC) {
+            SecNotifier secNotifier = new SecNotifier(notifier);
+            secNotifier.notifyEmergency(info);
         }
-
-        // TODO: notify the GUI that this sensor should be red
     }
-
     public boolean verifyResponseCode(String responseCode) {
-        return responseCode == this.responseCode;
+        return responseCode.equals(this.responseCode);
     }
     public void turnOffAlertings() {
         this.setStatus(SystemStatus.RUNNING);
-        for (Room room : testSensors) {
+        for (Room room : errorSensors) {
             room.getSensor().setState(SensorState.ON);
         }
+        errorSensors = new ArrayList<>();
     }
 
-    private void setStatus(SystemStatus status) {
+    protected void setStatus(SystemStatus status) {
         this.status = status;
     }
 
@@ -229,7 +240,6 @@ public class SecHomeSystem {
                 location.get(key).getSensor().report();
                 rooms.add(location.get(key));
             }
-            this.testSensors = rooms;
             return rooms;
         }
     }

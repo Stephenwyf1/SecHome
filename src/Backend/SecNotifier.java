@@ -6,8 +6,8 @@ public class SecNotifier extends BaseNotifierDecorator {
         super(notifier);
     }
     @Override
-    public void notifyEmergency() {
-        super.notifyEmergency();
-        System.out.println("Calling 911 for security emergency!!!");
+    public void notifyEmergency(String info) {
+        super.notifyEmergency(info);
+        System.out.println("Calling 911 for security emergency!!\n"+info);
     }
 }

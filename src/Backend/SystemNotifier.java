@@ -2,5 +2,5 @@ package Backend;
 
 
 public interface SystemNotifier {
-    public void notifyEmergency();
+    public void notifyEmergency(String info);
 }
