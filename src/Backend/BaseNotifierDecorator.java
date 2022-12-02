@@ -9,7 +9,7 @@ public class BaseNotifierDecorator implements SystemNotifier {
     }
 
     @Override
-    public void notifyEmergency() {
-        this.notifier.notifyEmergency();
+    public void notifyEmergency(String info) {
+        this.notifier.notifyEmergency(info);
     }
 }

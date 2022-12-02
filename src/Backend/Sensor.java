@@ -27,7 +27,8 @@ public abstract class Sensor {
 
     public void report() {
         this.state = SensorState.ERROR;
-        SecHomeSystem.getSingletonSystem().alert(this.id);
+        SecHomeSystem.getSingletonSystem().getErrorSensors().add(SecHomeSystem.getSingletonSystem().location.get(this));
+        SecHomeSystem.getSingletonSystem().setStatus(SystemStatus.ALERTING);
     }
     void setPrice(int price) {this.price = price;}
     int getPrice() {
