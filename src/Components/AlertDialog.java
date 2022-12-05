@@ -33,6 +33,8 @@ public class AlertDialog extends JDialog {
                         Application.paintSingleRoom(each);
                         Application.panel.updateUI();
                     }
+                    text.setText("");
+                    AlertDialog.this.setBounds(300,200,500,100);
                     new SuccessDialog();
                 } else {
                     new ErrorDialog("Invalid Credential");
