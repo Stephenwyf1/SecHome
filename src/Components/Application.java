@@ -5,14 +5,9 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
-import Backend.Room;
-import Backend.SecHomeSystem;
-import Backend.Sensor;
-import Backend.SystemStatus;
+import Backend.*;
 
 public class Application extends JFrame{
 
@@ -158,6 +153,8 @@ public class Application extends JFrame{
                 ScheduleDialog newScheduleDialog = new ScheduleDialog();
             }
         });
+
+
         // BuildBill
         btn4.addActionListener(new ActionListener() {
             @Override
@@ -202,6 +199,21 @@ public class Application extends JFrame{
             }
         });
 
+        Thread t = new Thread(() -> {
+            while (true) {
+                for(Schedule s : system.getScheduler()) {
+                    if (s.canStart()) {
+                        s.startJob();
+                        for(Map.Entry<UUID,Room> entry : system.getRoomMap().entrySet()) {
+                            paintSingleRoom(entry.getValue());
+                        }
+                        Application.panel.updateUI();
+                    }
+                }
+            }
+        });
+
+        t.start();
 
     }
 

@@ -1,10 +1,12 @@
 package Backend;
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SecHomeSystem {
     private String serviceContractId;
@@ -34,11 +36,15 @@ public class SecHomeSystem {
     private volatile static SecHomeSystem singletonSecHomeSystem;
     private String responseCode;
     private ArrayList<Room> errorSensors;
+    Properties props;
+
+    // schedule management
+    List<Schedule> scheduler = new CopyOnWriteArrayList<>();
 
     private SecHomeSystem(){
         try {
             String customerInfo = "setting.properties";
-            Properties props = new Properties();
+            props = new Properties();
             try {
                 props.load(new java.io.FileInputStream(customerInfo));
                 responseCode = props.getProperty("responseCode");
@@ -96,7 +102,7 @@ public class SecHomeSystem {
                     roomLayOut[i][j] = room;
                 }
             }
-            status = SystemStatus.RUNNING;
+            status = SystemStatus.SHUNTDOWN;
             sectionMap.put(section1.getId(), section1);
             sectionMap.put(section2.getId(), section2);
             sectionMap.put(section3.getId(), section3);
@@ -163,6 +169,8 @@ public class SecHomeSystem {
     public void setContactNumber1(String contactNumber1) throws Exception {
         if (validateContactNumber(contactNumber1)) {
             this.contactNumber1 = contactNumber1;
+            props.setProperty("contactNumber1",contactNumber1);
+            this.saveProps("contactNumber1 updated");
         } else {
             throw new Exception("Illegal Contact Number!");
         }
@@ -172,6 +180,8 @@ public class SecHomeSystem {
     public void setContactNumber2(String contactNumber2) throws Exception {
         if (validateContactNumber(contactNumber2)) {
             this.contactNumber2 = contactNumber2;
+            props.setProperty("contactNumber2",contactNumber2);
+            this.saveProps("contactNumber2 updated");
         } else {
             throw new Exception("Illegal Contact Number!");
         }
@@ -270,10 +280,34 @@ public class SecHomeSystem {
 
     public HashMap<UUID, BuildingSection> getSectionMap() {return this.sectionMap;}
 
-    public ArrayList<Room> turnOnSystem () { return this.building.turnOnSensor();}
+    public ArrayList<Room> turnOnSystem () {
+        this.status = SystemStatus.RUNNING;
+        return this.building.turnOnSensor();
+    }
 
-    public ArrayList<Room> turnOffSystem () { return this.building.turnOffSensor();}
+    public ArrayList<Room> turnOffSystem () {
+        this.status = SystemStatus.SHUNTDOWN;
+        return this.building.turnOffSensor();
+    }
 
-    public void setPassword(String pwd) {this.password = pwd;};
+    public void setPassword(String pwd) throws IOException {
+        props.setProperty("password",pwd);
+        this.saveProps("password updated");
+        this.password = pwd;
+    };
+
+    public void saveProps(String comment) throws IOException {
+        props.store(new java.io.FileOutputStream("setting.properties"),comment);
+    }
+
+    public void addSchedule(String jobType,String dateType,int hour,int min) {
+        Schedule s = new Schedule(jobType,dateType,hour,min);
+        scheduler.add(s);
+    }
+
+    public List<Schedule> getScheduler() {return this.scheduler;}
+
+    public Map<UUID,Room> getRoomMap() {return this.map;}
+
 
 }

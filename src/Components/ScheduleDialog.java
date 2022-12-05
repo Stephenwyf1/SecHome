@@ -15,9 +15,9 @@ public class ScheduleDialog extends JDialog {
 
     SecHomeSystem system = SecHomeSystem.getSingletonSystem();
     final String[] systemType = new String[]{"System On","System Off"};
-    final String[] dateType = new String[]{"Daily","Weekly","Weekdays","Weekends"};
+    final String[] dateType = new String[]{"Daily","Weekdays","Weekends"};
     final Vector<Integer> hourType = new Vector<>(IntStream.range(0, 23 + 1).boxed().collect(Collectors.toList()));
-    final Vector<Integer> minType = new Vector<>(IntStream.range(0, 60 + 1).boxed().collect(Collectors.toList()));
+    final Vector<Integer> minType = new Vector<>(IntStream.range(0, 59 + 1).boxed().collect(Collectors.toList()));
 
     ScheduleDialog() {
         this.setLayout(new FlowLayout());
@@ -38,7 +38,17 @@ public class ScheduleDialog extends JDialog {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                String jobType = systemBox.getSelectedIndex() == 0? "On" : "Off";
+                String date = switch (dateBox.getSelectedIndex()) {
+                    case 0 -> "Daily";
+                    case 1 -> "Weekdays";
+                    case 2 -> "Weekends";
+                    default -> throw new IllegalStateException("Unexpected value: " + dateBox.getSelectedIndex());
+                };
+                int hour = hourBox.getSelectedIndex();
+                int min = minBox.getSelectedIndex();
+                system.addSchedule(jobType,date,hour,min);
+                new SuccessDialog();
             }
         });
 
