@@ -37,6 +37,7 @@ public class SettingsDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 try {
                     system.setContactNumber1(input1.getText());
+                    new SuccessDialog();
                 } catch (Exception exception) {
                     new ErrorDialog(exception.getMessage());
                 }
@@ -48,17 +49,19 @@ public class SettingsDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 try {
                     system.setContactNumber2(input2.getText());
+                    new SuccessDialog();
                 } catch (Exception exception) {
                     new ErrorDialog(exception.getMessage());
                 }
             }
         });
 
-        submit1.addActionListener(new ActionListener() {
+        submit3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     system.setPassword(input3.getText());
+                    new SuccessDialog();
                 } catch (Exception exception) {
                     new ErrorDialog(exception.getMessage());
                 }

@@ -151,7 +151,13 @@ public class Application extends JFrame{
             }
         });
 
-
+        // Schedule
+        btn3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ScheduleDialog newScheduleDialog = new ScheduleDialog();
+            }
+        });
         // BuildBill
         btn4.addActionListener(new ActionListener() {
             @Override
