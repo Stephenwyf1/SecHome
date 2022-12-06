@@ -4,22 +4,21 @@ package Backend;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.UUID;
 
 public class BuildingSection extends Building {
     SensorType currentInstallation;
     Boolean isInstalledCamera;
-    HashSet<Building> collection;
+    HashSet<Building> buildings;
     BuildingSection() {
         super();
-        this.collection = new HashSet<>();
+        this.buildings = new HashSet<>();
         this.isInstalledCamera = false;
     }
 
     @Override
     public int computePrice() {
         int sum = 0;
-        for (Building b : collection) {
+        for (Building b : buildings) {
             sum += b.computePrice();
         }
         return sum;
@@ -28,7 +27,7 @@ public class BuildingSection extends Building {
     @Override
     public int computePrice(SensorType sensorType) {
         int sum = 0;
-        for (Building b : collection) {
+        for (Building b : buildings) {
             sum += b.computePrice(sensorType);
         }
         return sum;
@@ -39,7 +38,7 @@ public class BuildingSection extends Building {
         ArrayList<Room> rooms = new ArrayList<>();
         this.currentInstallation = sensorType;
         this.isInstalledCamera = isNeedCamera;
-        for (Building b : collection) {
+        for (Building b : this.buildings) {
             rooms.addAll(b.installSensor(sensorType, isNeedCamera));
         }
         return rooms;
@@ -48,7 +47,7 @@ public class BuildingSection extends Building {
     @Override
     public ArrayList<Room> turnOnSensor() {
         ArrayList<Room> rooms = new ArrayList<>();
-        for (Building b : collection) {
+        for (Building b : this.buildings) {
             rooms.addAll(b.turnOnSensor());
         }
         return rooms;
@@ -57,7 +56,7 @@ public class BuildingSection extends Building {
     @Override
     public ArrayList<Room> turnOffSensor() {
         ArrayList<Room> rooms = new ArrayList<>();
-        for (Building b : collection) {
+        for (Building b : this.buildings) {
             rooms.addAll(b.turnOffSensor());
         }
         return rooms;
@@ -68,7 +67,7 @@ public class BuildingSection extends Building {
         ArrayList<Room> rooms = new ArrayList<>();
         this.isInstalledCamera = false;
         this.currentInstallation = null;
-        for (Building b : collection) {
+        for (Building b : this.buildings) {
             rooms.addAll(b.uninstallSensor());
         }
         return rooms;
@@ -77,7 +76,7 @@ public class BuildingSection extends Building {
     @Override
     public List<Room> getRooms() {
         List<Room> rooms = new ArrayList<>();
-        for (Building b : collection) {
+        for (Building b : this.buildings) {
             rooms.addAll(b.getRooms());
         }
         return rooms;
@@ -86,17 +85,21 @@ public class BuildingSection extends Building {
     @Override
     public List<Room> getRooms(SensorType sensorType) {
         List<Room> rooms = new ArrayList<>();
-        for (Building b : collection) {
+        for (Building b : this.buildings) {
             rooms.addAll(b.getRooms(sensorType));
         }
         return rooms;
     }
 
     public void addBuilding(Building building) {
-        collection.add(building);
+        buildings.add(building);
+    }
+
+    public HashSet<Building> getBuildings() {
+        return buildings;
     }
 
     public void removeBuilding(Building building) {
-        collection.remove(building);
+        buildings.remove(building);
     }
 }

@@ -3,6 +3,7 @@ package Backend;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -43,25 +44,20 @@ public class SecHomeSystem {
 
     private SecHomeSystem(){
         try {
-            String customerInfo = "setting.properties";
             props = new Properties();
-            try {
-                props.load(new java.io.FileInputStream(customerInfo));
-                responseCode = props.getProperty("responseCode");
-                serviceContractId = props.getProperty("serviceContractId");
-                addressOfProperty = props.getProperty("addressOfProperty");
-                customerName = props.getProperty("customerName");
-                effectiveDates = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(props.getProperty("effectiveDates"));
-                customerID = props.getProperty("customerID");
-                contactNumber1 = props.getProperty("contactNumber1");
-                contactNumber2 = props.getProperty("contactNumber2");
-                password = props.getProperty("password");
-                fireSensorPrice = Integer.parseInt(props.getProperty("fireSensorPrice"));
-                motionSensorPrice = Integer.parseInt(props.getProperty("motionSensorPrice"));
-                cameraPrice = Integer.parseInt(props.getProperty("cameraPrice"));
-            } catch (IOException | ParseException e) {
-                System.exit(2);
-            }
+            props.load(this.getClass().getResourceAsStream("/resource/setting.properties"));
+            responseCode = props.getProperty("responseCode");
+            serviceContractId = props.getProperty("serviceContractId");
+            addressOfProperty = props.getProperty("addressOfProperty");
+            customerName = props.getProperty("customerName");
+            effectiveDates = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(props.getProperty("effectiveDates"));
+            customerID = props.getProperty("customerID");
+            contactNumber1 = props.getProperty("contactNumber1");
+            contactNumber2 = props.getProperty("contactNumber2");
+            password = props.getProperty("password");
+            fireSensorPrice = Integer.parseInt(props.getProperty("fireSensorPrice"));
+            motionSensorPrice = Integer.parseInt(props.getProperty("motionSensorPrice"));
+            cameraPrice = Integer.parseInt(props.getProperty("cameraPrice"));
             this.errorSensors = new ArrayList<>();
             this.location = new HashMap<>();
             this.map = new HashMap<>();

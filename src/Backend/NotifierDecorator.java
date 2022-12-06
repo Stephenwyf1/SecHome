@@ -1,10 +1,10 @@
 package Backend;
 
-public class BaseNotifierDecorator implements SystemNotifier {
+public class NotifierDecorator implements SystemNotifier {
 
     SystemNotifier notifier;
 
-    public BaseNotifierDecorator(SystemNotifier notifier) {
+    public NotifierDecorator(SystemNotifier notifier) {
         this.notifier = notifier;
     }
 

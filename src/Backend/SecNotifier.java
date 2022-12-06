@@ -1,7 +1,7 @@
 package Backend;
 
 
-public class SecNotifier extends BaseNotifierDecorator {
+public class SecNotifier extends NotifierDecorator {
     public SecNotifier(SystemNotifier notifier) {
         super(notifier);
     }

@@ -1,7 +1,7 @@
 
 package Backend;
 
-public class FireNotifier extends BaseNotifierDecorator {
+public class FireNotifier extends NotifierDecorator {
     public FireNotifier(SystemNotifier notifier) {
         super(notifier);
     }

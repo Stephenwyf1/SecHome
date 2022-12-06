@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SecHome:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SecHome_jar</output-path>
+    <root id="archive" name="SecHome.jar">
+      <element id="module-output" name="SecHome" />
+    </root>
+  </artifact>
+</component>

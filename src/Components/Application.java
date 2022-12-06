@@ -5,6 +5,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.InputStream;
 import java.util.*;
 
 import Backend.*;
@@ -128,6 +129,7 @@ public class Application extends JFrame{
 
     public static void main(String[] args) {
 
+        System.out.println("Enjoy using the SecHome system~");
         system = SecHomeSystem.getSingletonSystem();
         Application app = new Application();
         app.initialize();

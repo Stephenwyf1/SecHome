@@ -63,7 +63,6 @@ public class Room extends Building {
         return rooms;
     }
 
-    @Override
     public List<Room> getRooms() {
         List<Room> list = new ArrayList<>();
         list.add(this);
@@ -77,6 +76,7 @@ public class Room extends Building {
         return list;
     }
 
+    @Override
     public ArrayList<Room> turnOnSensor() {
         ArrayList<Room> rooms = new ArrayList<>();
         if (this.hasSensor()) {
@@ -85,7 +85,7 @@ public class Room extends Building {
         }
         return rooms;
     }
-
+    @Override
     public ArrayList<Room> turnOffSensor() {
         ArrayList<Room> rooms = new ArrayList<>();
         if (this.hasSensor()) {
